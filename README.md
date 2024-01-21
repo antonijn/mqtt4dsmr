@@ -85,92 +85,94 @@ Options must be given to the container as environment variables.
     <td>Default</td>
   </tr>
   <tr>
-    <td>`MQTT_HOST`</td>
+    <td><pre>MQTT_HOST</pre></td>
     <td>IP address or URL for MQTT broker.</td>
     <td></td>
   </tr>
   <tr>
-    <td>`MQTT_PORT`</td>
-    <td>Broker MQTT port. If set to 8883 and `MQTT_TLS` is not
-        explicitly defined, then `MQTT_TLS` defaults to `true` (Optional).</td>
+    <td><pre>MQTT_PORT</pre></td>
+    <td>Broker MQTT port. If set to 8883 and <pre>MQTT_TLS</pre> is not
+        explicitly defined, then <pre>MQTT_TLS</pre> defaults to <pre>true</pre> (Optional).</td>
     <td>1883</td>
   </tr>
   <tr>
-    <td>`MQTT_USERNAME`</td>
+    <td><pre>MQTT_USERNAME</pre></td>
     <td>MQTT username. (Optional)</td>
     <td></td>
   </tr>
   <tr>
-    <td>`MQTT_PASSWORD`</td>
-    <td>MQTT password. (Optional if `MQTT_USERNAME` is not set)</td>
+    <td><pre>MQTT_PASSWORD</pre></td>
+    <td>MQTT password. (Optional if <pre>MQTT_USERNAME</pre> is not set)</td>
     <td></td>
   </tr>
   <tr>
-    <td>`MQTT_TLS`</td>
-    <td>Use MQTT over TLS. If set to `true` and `MQTT_PORT` is not
-        explicitly defined, then `MQTT_PORT` defaults to 8883. (Optional)</td>
-    <td>`false`</td>
+    <td><pre>MQTT_TLS</pre></td>
+    <td>Use MQTT over TLS. If set to <pre>true</pre> and <pre>MQTT_PORT</pre> is not
+        explicitly defined, then <pre>MQTT_PORT</pre> defaults to 8883. (Optional)</td>
+    <td><pre>false</pre></td>
   </tr>
   <tr>
-    <td>`MQTT_TLS_INSECURE`</td>
+    <td><pre>MQTT_TLS_INSECURE</pre></td>
     <td>Disable hostname verification for MQTT over TLS. (Optional)</td>
-    <td>`false`</td>
+    <td><pre>false</pre></td>
   </tr>
   <tr>
-    <td>`MQTT_CA_CERTS`</td>
+    <td><pre>MQTT_CA_CERTS</pre></td>
     <td>CA bundle file for broker verification. Only relevant for MQTT
         over TLS. (Optional)</td>
     <td>system CA bundle</td>
   </tr>
   <tr>
-    <td>`MQTT_CERTFILE`</td>
+    <td><pre>MQTT_CERTFILE</pre></td>
     <td>Client certificate for authentication. (Optional)</td>
     <td></td>
   </tr>
   <tr>
-    <td>`MQTT_KEYFILE`</td>
+    <td><pre>MQTT_KEYFILE</pre></td>
     <td>Client keyfile for authentication. (Optional)</td>
     <td></td>
   </tr>
   <tr>
-    <td>`MQTT_TOPIC_PREFIX`</td>
+    <td><pre>MQTT_TOPIC_PREFIX</pre></td>
     <td>Topic prefix for application MQTT traffic. You should probably
         not change the default values unless you know it will conflict.
         (Optional)</td>
-    <td>`dsmr`</td>
+    <td><pre>dsmr</pre></td>
   </tr>
   <tr>
-    <td>`HA_DEVICE_ID`</td>
+    <td><pre>HA_DEVICE_ID</pre></td>
     <td>Home Assistant internal device ID. You should probably not
         change the default values unless you know it will conflict.
         (Optional)</td>
-    <td>`dsmr`</td>
+    <td><pre>dsmr</pre></td>
   </tr>
   <tr>
-    <td>`HA_DISCOVERY_PREFIX`</td>
+    <td><pre>HA_DISCOVERY_PREFIX</pre></td>
     <td>Home Assistant discovery prefix. This should match the value
         you have configured in your Home Assistant MQTT integration.
         If you have not configured such a value, then don't change this
         option. (Optional)</td>
-    <td>`homeassistant`</td>
+    <td><pre>homeassistant</pre></td>
   </tr>
   <tr>
-    <td>`DSMR_VERSION`</td>
+    <td><pre>DSMR_VERSION</pre></td>
     <td>Dutch Smart Meter Specification version. Can be one of
-        `AUSTRIA_ENERGIENETZE_STEIERMARK`, `BELGIUM_FLUVIUS`,
-        `EON_HUNGARY`, `ISKRA_IE`, `LUXEMBOURG_SMARTY`, `Q3D`,
-        `SAGEMCOM_T210_D_R`, `SWEDEN`, `V2_2`, `V3`, `V4`, `V5`. See
+        <pre>AUSTRIA_ENERGIENETZE_STEIERMARK</pre>,
+        <pre>BELGIUM_FLUVIUS</pre>, <pre>EON_HUNGARY</pre>,
+        <pre>ISKRA_IE</pre>, <pre>LUXEMBOURG_SMARTY</pre>, <pre>Q3D</pre>,
+        <pre>SAGEMCOM_T210_D_R</pre>, <pre>SWEDEN</pre>, <pre>V2_2</pre>,
+        <pre>V3</pre>, <pre>V4</pre>, <pre>V5</pre>. See
         [ndokter/dsmr_parser](https://github.com/ndokter/dsmr_parser)
         for more information. (Optional)</td>
-    <td>`V4`</td>
+    <td><pre>V4</pre></td>
   </tr>
   <tr>
-    <td>`SERIAL_SETTINGS`</td>
-    <td>Serial settings. Is probably related to your `DSMR_VERSION`
+    <td><pre>SERIAL_SETTINGS</pre></td>
+    <td>Serial settings. Is probably related to your <pre>DSMR_VERSION</pre>
         setting. Worth playing around with if things don't work
-        initially. Can be one of `V2_2`, `V4`, `V5`. See
-        [ndokter/dsmr_parser](https://github.com/ndokter/dsmr_parser)
+        initially. Can be one of <pre>V2_2</pre>, <pre>V4</pre>,
+        <pre>V5</pre>. See [ndokter/dsmr_parser](https://github.com/ndokter/dsmr_parser)
         for more information. (Optional)</td>
-    <td>`V4`</td>
+    <td><pre>V4</pre></td>
   </tr>
 </table>
