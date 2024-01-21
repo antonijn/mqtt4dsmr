@@ -60,11 +60,12 @@ def attr_name(attr):
 class Schema:
     def __init__(self, telegram, topic):
         unit_info = {
-            'W':   SensorKind('elec', 'power',  'W',   'mdi:lightning-bolt', state_class='measurement'),
-            'kW':  SensorKind('elec', 'power',  'kW',  'mdi:lightning-bolt', state_class='measurement'),
-            'Wh':  SensorKind('elec', 'energy', 'Wh',  'mdi:lightning-bolt', state_class='total'),
-            'kWh': SensorKind('elec', 'energy', 'kWh', 'mdi:lightning-bolt', state_class='total'),
-            'm3':  SensorKind('gas',  'gas',    'm³',  'mdi:meter-gas',      state_class='total')
+            'W':   SensorKind('elec', 'power',   'W',   'mdi:lightning-bolt', state_class='measurement'),
+            'kW':  SensorKind('elec', 'power',   'kW',  'mdi:lightning-bolt', state_class='measurement'),
+            'Wh':  SensorKind('elec', 'energy',  'Wh',  'mdi:lightning-bolt', state_class='total'),
+            'kWh': SensorKind('elec', 'energy',  'kWh', 'mdi:lightning-bolt', state_class='total'),
+            'V':   SensorKind('elec', 'voltage', 'V',   'mdi:lightning-bolt', state_class='measurement'),
+            'm3':  SensorKind('gas',  'gas',     'm³',  'mdi:meter-gas',      state_class='total')
         }
 
         diag = SensorKind('diag', None, None, 'mdi:counter')
