@@ -24,14 +24,14 @@ def get_env_opt(name, ty, required, default = None):
         value = os.environ[name]
     else:
         if required:
-            raise LookupError(f"{name} not set in environment")
+            raise LookupError(f'{name} not set in environment')
         return default
 
     if type(ty) != type:
         # Must be a collection of permissible values
         if value not in ty:
-            values = ", ".join(str(t) for t in ty)
-            raise ValueError(f"{name} must be one of {values}")
+            values = ', '.join(str(t) for t in ty)
+            raise ValueError(f'{name} must be one of {values}')
         return value
 
     if ty == bool:
@@ -39,7 +39,7 @@ def get_env_opt(name, ty, required, default = None):
             return True
         if value.lower() in ('false', 'no', 'n', '0', ''):
             return False
-        raise ValueError(f"{name} must be boolean")
+        raise ValueError(f'{name} must be boolean')
 
     return ty(value)
 
@@ -60,22 +60,19 @@ class Config:
         self.SERIAL_PORT = get_env_opt('SERIAL_PORT', str, False, '/dev/ttyDSMR')
         self.DSMR_VERSION = getattr(telegram_specifications, dsmr_version)
 
-        self.MQTT_HOST = get_env_opt("MQTT_HOST", str, True)
-        # We set it to 'None' initially; it will get its proper value once
-        # we know if the user has specified port 8883
-        self.MQTT_TLS = get_env_opt("MQTT_TLS", bool, False, None)
-        self.MQTT_TLS_INSECURE = get_env_opt("MQTT_TLS_INSECURE", bool, False, False)
-        self.MQTT_CA_CERTS = get_env_opt("MQTT_CA_CERTS", str, False)
-        self.MQTT_CERTFILE = get_env_opt("MQTT_CERTFILE", str, False)
-        self.MQTT_KEYFILE  = get_env_opt("MQTT_KEYFILE",  str, False)
-        # Same logic as MQTT_TLS; None initially
-        self.MQTT_PORT = get_env_opt("MQTT_PORT", int, False, None)
-        self.MQTT_USERNAME = get_env_opt("MQTT_USERNAME", str, False)
-        self.MQTT_PASSWORD = get_env_opt("MQTT_PASSWORD", str, self.MQTT_USERNAME is not None)
-        self.MQTT_TOPIC_PREFIX = get_env_opt("MQTT_TOPIC_PREFIX", str, False, "dsmr")
+        self.MQTT_HOST         = get_env_opt('MQTT_HOST', str, True)
+        self.MQTT_PORT         = get_env_opt('MQTT_PORT', int, False, None)
+        self.MQTT_TLS          = get_env_opt('MQTT_TLS', bool, False, None)
+        self.MQTT_TLS_INSECURE = get_env_opt('MQTT_TLS_INSECURE', bool, False, False)
+        self.MQTT_CA_CERTS     = get_env_opt('MQTT_CA_CERTS', str, False)
+        self.MQTT_CERTFILE     = get_env_opt('MQTT_CERTFILE', str, False)
+        self.MQTT_KEYFILE      = get_env_opt('MQTT_KEYFILE',  str, False)
+        self.MQTT_USERNAME     = get_env_opt('MQTT_USERNAME', str, False)
+        self.MQTT_PASSWORD     = get_env_opt('MQTT_PASSWORD', str, self.MQTT_USERNAME is not None)
+        self.MQTT_TOPIC_PREFIX = get_env_opt('MQTT_TOPIC_PREFIX', str, False, 'dsmr')
 
-        self.HA_DEVICE_ID = get_env_opt("HA_DEVICE_ID", str, False, 'dsmr')
-        self.HA_DISCOVERY_PREFIX = get_env_opt("HA_DISCOVERY_PREFIX", str, False, "homeassistant")
+        self.HA_DEVICE_ID        = get_env_opt('HA_DEVICE_ID', str, False, 'dsmr')
+        self.HA_DISCOVERY_PREFIX = get_env_opt('HA_DISCOVERY_PREFIX', str, False, 'homeassistant')
 
         # Make sure MQTT_PORT has a valid value
         if self.MQTT_PORT is None:
