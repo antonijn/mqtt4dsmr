@@ -84,6 +84,7 @@ class Schema:
             else:
                 continue
 
+            logging.debug(f'{attr} will be part of schema')
             self.attributes[attr] = (kind.topic_name(topic, attr), kind)
 
     def publish(self, client, telegram):

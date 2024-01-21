@@ -12,6 +12,7 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+import logging
 import os
 import re
 import dsmr_parser.clients
@@ -46,12 +47,14 @@ class Config:
     def __init__(self):
         serial_settings_pfx = 'SERIAL_SETTINGS_'
         serial_settings_options = [s[len(serial_settings_pfx):] for s in dir(dsmr_parser.clients) if s.startswith(serial_settings_pfx)]
+        logging.debug(f'Possible values for SERIAL_SETTINGS: {serial_settings_options}')
         serial_settings = get_env_opt('SERIAL_SETTINGS', serial_settings_options, False, 'V4')
 
         dsmr_vname = re.compile(r'^[A-Z0-9_]*$')
         dsmr_versions = [v for v in dir(telegram_specifications) if dsmr_vname.match(v)]
         dsmr_versions.remove('ALL')
-        dsmr_version = get_env_opt('DSMR_VERSION', dsmr_versions, False, 'V5')
+        logging.debug(f'Possible values for DSMR_VERSION: {dsmr_versions}')
+        dsmr_version = get_env_opt('DSMR_VERSION', dsmr_versions, False, 'V4')
 
         self.SERIAL_SETTINGS = getattr(dsmr_parser.clients, serial_settings_pfx + serial_settings)
         self.SERIAL_PORT = get_env_opt('SERIAL_PORT', str, False, '/dev/ttyDSMR')
