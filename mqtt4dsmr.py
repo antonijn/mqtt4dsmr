@@ -34,11 +34,10 @@ class SensorKind:
         self.icon = icon
         self.state_class = state_class
 
-    def topic_tuple(self, pfx, attr_name):
-        return (f'{pfx}/{self.subtopic}/{attr_name.lower()}', self)
+    def topic_name(self, pfx, attr_name):
+        return f'{pfx}/{self.subtopic}/{attr_name.lower()}'
 
     def amend_sensor_dict(self, sensor):
-
         if self.device_class is not None:
             sensor['device_class'] = self.device_class
         if self.icon is not None:
@@ -72,22 +71,20 @@ class Schema:
 
         self.attributes = {}
         for attr, obj in telegram:
-            # Values with a unit are predictable and definitely useful
             if hasattr(obj, 'unit') and obj.unit in unit_info:
+                # Values with a unit are predictable and definitely
+                # useful
                 kind = unit_info[obj.unit]
-                self.attributes[attr] = unit_info[obj.unit].topic_tuple(topic, attr)
+            elif attr.endswith('_COUNT') or attr == 'ELECTRICITY_ACTIVE_TARIFF':
+                # These values seem broadly useful and predictable;
+                # let's include them! The manual inclusion of the active
+                # tariff is kind of janky, of course, but if it works it
+                # works.
+                kind = diag
+            else:
                 continue
 
-            # These values seem broadly useful and predictable; let's
-            # include them!
-            if attr.endswith('_COUNT'):
-                self.attributes[attr]= diag.topic_tuple(topic, attr)
-                continue
-
-            # Kind of janky, but this one's useful enough to include
-            # manually
-            if attr == 'ELECTRICITY_ACTIVE_TARIFF':
-                self.attributes[attr]= diag.topic_tuple(topic, attr)
+            self.attributes[attr] = (kind.topic_name(topic, attr), kind)
 
     def publish(self, client, telegram):
         for key, (topic, _) in self.attributes.items():
