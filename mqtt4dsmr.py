@@ -96,7 +96,7 @@ class Schema:
 
         device = {
             'identifiers': [dev_id],
-            'name': 'mqtt4dsmr',
+            'name': 'DSMR Smart Meter',
         }
         simple_device = {'identifiers': [dev_id]}
 
