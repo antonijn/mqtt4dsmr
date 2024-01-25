@@ -1,7 +1,7 @@
 # DSMR Smart Meter MQTT Client
 
 Lightweight containerized Dutch Smart Meter (_Slimme Meter_) to MQTT
-software, with automatic Home Assistant integration.
+daemon, with automatic Home Assistant integration.
 
 Uses [paho-mqtt](https://pypi.org/project/paho-mqtt/) and
 [ndokter/dsmr_parser](https://github.com/ndokter/dsmr_parser) to do the
@@ -11,23 +11,23 @@ heavy lifting.
 
 ## Is this you?
 You've been running Home Assistant on a Raspberry Pi in the _meterkast_
-for a while. You've hooked it up directly to your Smart Meter with
-a USB cable, and you're happily using the built-in [DSMR Slimme
+for a while. You've hooked it up directly to your Smart Meter's P1 port
+with a USB cable, and you're happily using the built-in [DSMR Slimme
 Meter](https://www.home-assistant.io/integrations/dsmr/) integration.
 
-But now you want to move Home Assistant to a server in the attic,
-without physical access to your Smart Meter. You want to use the MQTT protocol to
-let the Raspberry Pi in the _meterkast_ smoothly communicate with Home
-Assistant upstairs. You want a turn-key, easy to configure, well-engineered
+But now you want to move Home Assistant to a server in the attic, without
+physical access to your Smart Meter. You want to keep using your Raspberry
+Pi to read the Smart Meter, and want to use the MQTT protocol to send the
+data upstairs. You want a turn-key, easy to configure, well-engineered
 application for the job.
 
-Then mqtt4dsmr is right for you!
+In that case mqtt4dsmr is right for you!
 
 ## Usage
-The examples use `podman` since I'm more familiar with it than `docker`,
+### Trying it out
+The example uses `podman` since I'm more familiar with it than `docker`,
 but they should be relatively interchangeable.
 
-### Trying it out
 When using rootless containers, make sure your user has the right group
 membership to access serial ports (this is why the `--group-add` option
 is there). On Fedora Linux this group is called `dialout`.
@@ -130,7 +130,7 @@ IP address or URL for MQTT broker.
 <td>
 
 Broker MQTT port. If set to 8883 and `MQTT_TLS` is not
-explicitly defined, then `MQTT_TLS` defaults to `true` (Optional).
+explicitly defined, then `MQTT_TLS` defaults to `true`. (Optional)
 
 </td>
 <td>
@@ -376,7 +376,7 @@ cannot be overridden. Make sure to map the host device accordingly.
 <td>
 
 Logging level. Must be `DEBUG`, `INFO`, `WARNING`, `ERROR` or
-`CRITICAL`.
+`CRITICAL`. (Optional)
 
 </td>
 <td>
