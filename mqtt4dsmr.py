@@ -121,7 +121,7 @@ class Schema:
             device = simple_device
 
 def main():
-    logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s', level=logging.INFO)
+    logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s')
 
     cfg = Config()
 

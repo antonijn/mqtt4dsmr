@@ -367,4 +367,22 @@ cannot be overridden. Make sure to map the host device accordingly.
 <td>
 </td>
 </tr>
+<tr>
+<td>
+
+`LOG_LEVEL`
+
+</td>
+<td>
+
+Logging level. Must be `DEBUG`, `INFO`, `WARNING`, `ERROR` or
+`CRITICAL`.
+
+</td>
+<td>
+
+`INFO`
+
+</td>
+</tr>
 </table>

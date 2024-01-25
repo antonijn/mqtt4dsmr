@@ -45,6 +45,9 @@ def get_env_opt(name, ty, required, default = None):
 
 class Config:
     def __init__(self):
+        self.LOG_LEVEL = get_env_opt('LOG_LEVEL', str, False, 'INFO')
+        logging.getLogger().setLevel(self.LOG_LEVEL)
+
         serial_settings_pfx = 'SERIAL_SETTINGS_'
         serial_settings_options = [s[len(serial_settings_pfx):] for s in dir(dsmr_parser.clients) if s.startswith(serial_settings_pfx)]
         logging.debug(f'Possible values for SERIAL_SETTINGS: {serial_settings_options}')
