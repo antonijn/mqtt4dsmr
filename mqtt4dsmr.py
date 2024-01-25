@@ -155,7 +155,7 @@ def main():
     client.publish(avail, 'online', retain=True)
 
     serial_reader = SerialReader(
-        device=cfg.SERIAL_PORT,
+        device=cfg.SERIAL_DEVICE,
         serial_settings=cfg.SERIAL_SETTINGS,
         telegram_specification=cfg.DSMR_VERSION
     )

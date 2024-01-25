@@ -328,4 +328,22 @@ for more information. (Optional)
 
 </td>
 </tr>
+<tr>
+<td>
+
+`SERIAL_DEVICE`
+
+</td>
+<td>
+
+Path to serial device file.
+
+**NOTE:** This option is for testing purposes only. When running in a
+container, `SERIAL_DEVICE` always has the value `/dev/ttyDSMR` and
+cannot be overridden. Make sure to map the host device accordingly.
+
+</td>
+<td>
+</td>
+</tr>
 </table>
