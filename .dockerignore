@@ -2,5 +2,6 @@ __pycache__
 *.pyc
 venv
 README.md
-Containerfile
+sensor.png
+Dockerfile
 .git*

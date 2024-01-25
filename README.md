@@ -7,6 +7,8 @@ Uses [paho-mqtt](https://pypi.org/project/paho-mqtt/) and
 [ndokter/dsmr_parser](https://github.com/ndokter/dsmr_parser) to do the
 heavy lifting.
 
+![Automatic Home Assistant Discovery Demo](./sensor.png)
+
 ## Is this you?
 You've been running Home Assistant on a Raspberry Pi in the _meterkast_
 for a while. You've hooked it up directly to your Smart Meter with
@@ -27,7 +29,7 @@ but they should be relatively interchangeable.
 
 ### Trying it out
 When using rootless containers, make sure your user has the right group
-membership to access serial ports (this is why the `--gorup-add` option
+membership to access serial ports (this is why the `--group-add` option
 is there). On Fedora Linux this group is called `dialout`.
 
 ```
