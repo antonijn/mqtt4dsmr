@@ -45,7 +45,7 @@ podman run -d                                             \
     ghcr.io/antonijn/mqtt4dsmr
 ```
 
-### Automated execution
+### Automated execution (Quadlet)
 Put the following in `~/.config/containers/systemd/mqtt4dsmr.container`:
 
 ```
@@ -77,6 +77,27 @@ below.
 Enable the container using `systemctl --user start mqtt4dsmr`. To
 automatically start the daemon at system start-up while using rootless
 containers, enable lingering for your user: `loginctl enable-linger <my-user>`.
+
+### Automated execution (docker-compose)
+Example `compose.yaml`:
+
+```yaml
+version: "3"
+
+services:
+  mqtt4dsmr:
+    image: "ghcr.io/antonijn/mqtt4dsmr:latest"
+    environment:
+      MQTT_HOST: "mqtt.home.example.org"
+      MQTT_PORT: "1883"
+      MQTT_USERNAME: "my_user"
+      MQTT_PASSWORD: "my_password"
+    devices:
+      - "/dev/serial/by-id/usb-MY_DEVICE:/dev/ttyDSMR"
+```
+
+Use additional environment variables as required, per the documentation
+below.
 
 ## Options
 Options must be given to the container as environment variables.
