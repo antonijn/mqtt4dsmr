@@ -370,6 +370,24 @@ cannot be overridden. Make sure to map the host device accordingly.
 <tr>
 <td>
 
+`MESSAGE_INTERVAL`
+
+</td>
+<td>
+
+Minimum average interval between messages in seconds. Set to positive
+value to enable rate limiting.
+
+</td>
+<td>
+
+0
+
+</td>
+</tr>
+<tr>
+<td>
+
 `LOG_LEVEL`
 
 </td>
