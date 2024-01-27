@@ -45,6 +45,38 @@ podman run -d                                             \
     ghcr.io/antonijn/mqtt4dsmr
 ```
 
+### Automated execution (docker-compose)
+If you have little experience with containers and/or are running on
+Raspberry Pi OS, this is the recommended method.
+
+Example `compose.yaml`:
+
+```yaml
+version: "3"
+
+services:
+  mqtt4dsmr:
+    image: "ghcr.io/antonijn/mqtt4dsmr:latest"
+    environment:
+      MQTT_HOST: "mqtt.home.example.org"
+      MQTT_PORT: "1883"
+      MQTT_USERNAME: "my_user"
+      MQTT_PASSWORD: "my_password"
+    devices:
+      - "/dev/serial/by-id/usb-MY_DEVICE:/dev/ttyDSMR"
+    restart: always
+```
+
+Use additional environment variables as required, per the documentation
+below.
+
+Run `docker compose up -d` to start the application. There are multiple
+ways to enable docker compose at system start-up. One method is to place
+the above configuration in `/etc/docker/compose/mqtt4dsmr/docker-compose.yml`,
+and follow [this guide](https://gist.github.com/mosquito/b23e1c1e5723a7fd9e6568e5cf91180f/18a4efee062cda1a5b6807e440f891fd6bfb4f78).
+Running `systemctl enable --now docker-compose@mqtt4dsmr` should then
+do the trick.
+
 ### Automated execution (Quadlet)
 Put the following in `~/.config/containers/systemd/mqtt4dsmr.container`:
 
@@ -77,27 +109,6 @@ below.
 Enable the container using `systemctl --user start mqtt4dsmr`. To
 automatically start the daemon at system start-up while using rootless
 containers, enable lingering for your user: `loginctl enable-linger <my-user>`.
-
-### Automated execution (docker-compose)
-Example `compose.yaml`:
-
-```yaml
-version: "3"
-
-services:
-  mqtt4dsmr:
-    image: "ghcr.io/antonijn/mqtt4dsmr:latest"
-    environment:
-      MQTT_HOST: "mqtt.home.example.org"
-      MQTT_PORT: "1883"
-      MQTT_USERNAME: "my_user"
-      MQTT_PASSWORD: "my_password"
-    devices:
-      - "/dev/serial/by-id/usb-MY_DEVICE:/dev/ttyDSMR"
-```
-
-Use additional environment variables as required, per the documentation
-below.
 
 ## Options
 Options must be given to the container as environment variables.
