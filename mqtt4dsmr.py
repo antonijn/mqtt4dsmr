@@ -15,6 +15,7 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 import logging
+import os
 import sys
 from dsmr_parser.clients import SerialReader
 import paho.mqtt.client as mqtt
@@ -24,7 +25,9 @@ from rate_limit import DirectPublisher, RateLimitedPublisher
 
 
 def main():
-    logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s')
+    logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s', level=logging.INFO)
+    version = os.getenv('MQTT4DSMR_VERSION', 'unknown')
+    logging.info(f'Using mqtt4dsmr {version}')
 
     cfg = Config()
 
