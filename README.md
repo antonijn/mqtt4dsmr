@@ -376,7 +376,7 @@ cannot be overridden. Make sure to map the host device accordingly.
 <td>
 
 Minimum average interval between messages in seconds. Set to positive
-value to enable rate limiting.
+value to enable rate limiting. (Optional)
 
 </td>
 <td>
