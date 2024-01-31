@@ -24,6 +24,18 @@ from schema import Schema
 from rate_limit import DirectPublisher, RateLimitedPublisher
 
 
+def on_connect(client, userdata, flags, rc):
+    if rc == 0:
+        logging.info('Connected to broker')
+        client.publish(avail, 'online', retain=True)
+    else:
+        logging.error('Broker connection failed')
+
+
+def on_disconnect(client, userdata, rc):
+    logging.error('Disconnected from broker')
+
+
 def main():
     logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s', level=logging.INFO)
     version = os.getenv('MQTT4DSMR_VERSION', 'unknown')
@@ -50,15 +62,16 @@ def main():
     else:
         logging.info('No MQTT username/password provided')
 
+    global avail
     avail = f'{cfg.MQTT_TOPIC_PREFIX}/status'
 
     logging.info(f'Connecting to {cfg.MQTT_HOST}:{cfg.MQTT_PORT}')
     logging.info(f'Availibility topic: {avail}')
     client.will_set(avail, 'offline', retain=True)
+    client.on_connect = on_connect
+    client.on_disconnect = on_disconnect
     client.connect(cfg.MQTT_HOST, cfg.MQTT_PORT)
     client.loop_start()
-
-    client.publish(avail, 'online', retain=True)
 
     serial_reader = SerialReader(
         device=cfg.SERIAL_DEVICE,
