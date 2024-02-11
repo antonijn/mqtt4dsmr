@@ -415,3 +415,15 @@ Logging level. Must be `DEBUG`, `INFO`, `WARNING`, `ERROR` or
 </td>
 </tr>
 </table>
+
+## Hardware support
+Automated builds are available for AMD64, ARM64 and ARMv7. This means
+mqtt4dsmr should run on any x86-based personal computer, all
+second generation (or newer) Raspberry Pis and all second generation
+(or newer) Raspberry Pi Zeros.
+
+First generation Raspberry Pis are not supported at the moment, since
+ARMv6 builds are currently not possible. This is because recent versions
+of the `cryptography` package (required by `dlms-cosem`, in turn
+required by `dsmr-parser`) are
+[broken on ARMv6](https://github.com/antonijn/mqtt4dsmr/issues/2#issuecomment-1937367419).
