@@ -17,7 +17,7 @@
 import logging
 import os
 import sys
-from dsmr_parser.clients import SerialReader
+from dsmr_parser.clients import SerialReader, SocketReader
 import paho.mqtt.client as mqtt
 from config import Config
 from schema import Schema
@@ -73,14 +73,21 @@ def main():
     client.connect(cfg.MQTT_HOST, cfg.MQTT_PORT)
     client.loop_start()
 
-    serial_reader = SerialReader(
-        device=cfg.SERIAL_DEVICE,
-        serial_settings=cfg.SERIAL_SETTINGS,
-        telegram_specification=cfg.DSMR_VERSION
-    )
+    if cfg.DSMR_INTERFACE == 'tcp':
+        device_reader = SocketReader(
+            host=cfg.DSMR_TCP_HOST,
+            port=cfg.DSMR_TCP_PORT,
+            telegram_specification=cfg.DSMR_VERSION
+        )
+    else:
+        device_reader = SerialReader(
+            device=cfg.SERIAL_DEVICE,
+            serial_settings=cfg.SERIAL_SETTINGS,
+            telegram_specification=cfg.DSMR_VERSION
+        )
 
     publisher = None
-    for telegram in serial_reader.read():
+    for telegram in device_reader.read():
         logging.debug('Received serial message')
 
         if publisher is None:

@@ -414,6 +414,57 @@ Logging level. Must be `DEBUG`, `INFO`, `WARNING`, `ERROR` or
 
 </td>
 </tr>
+<tr>
+<td>
+
+`DSMR_INTERFACE`
+
+</td>
+<td>
+
+Interface for smart meter communication. Must be one of `serial` or
+`tcp`. (Optional)
+
+</td>
+<td>
+
+`serial`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`DSMR_TCP_HOST`
+
+</td>
+<td>
+
+Host to connect to the TCP stream of your smart meter. Required if
+`DSMR_INTERFACE` is set to `tcp`.
+
+</td>
+<td>
+
+</td>
+</tr>
+<tr>
+<td>
+
+`DSMR_TCP_PORT`
+
+</td>
+<td>
+
+Port to connect to the TCP stream of your smart meter. (Optional)
+
+</td>
+<td>
+
+```23```
+
+</td>
+</tr>
 </table>
 
 ## Hardware support

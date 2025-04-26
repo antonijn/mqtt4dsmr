@@ -65,8 +65,11 @@ class Config:
         dsmr_version = get_env_opt('DSMR_VERSION', dsmr_versions, False, 'V4')
 
         self.SERIAL_SETTINGS = getattr(dsmr_parser.clients, serial_settings_pfx + serial_settings)
-        self.SERIAL_DEVICE = get_env_opt('SERIAL_DEVICE', str, True)
         self.DSMR_VERSION = getattr(telegram_specifications, dsmr_version)
+        self.DSMR_INTERFACE = get_env_opt('DSMR_INTERFACE', ['serial', 'tcp'], False, 'serial')
+        self.SERIAL_DEVICE = get_env_opt('SERIAL_DEVICE', str, self.DSMR_INTERFACE == 'serial', None)
+        self.DSMR_TCP_HOST = get_env_opt('DSMR_TCP_HOST', str, self.DSMR_INTERFACE == 'tcp', None)
+        self.DSMR_TCP_PORT = get_env_opt('DSMR_TCP_PORT', int, False, 23)
 
         self.MQTT_HOST = get_env_opt('MQTT_HOST', str, True)
         self.MQTT_PORT = get_env_opt('MQTT_PORT', int, False, None)
