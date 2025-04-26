@@ -65,8 +65,11 @@ class Config:
         dsmr_version = get_env_opt('DSMR_VERSION', dsmr_versions, False, 'V4')
 
         self.SERIAL_SETTINGS = getattr(dsmr_parser.clients, serial_settings_pfx + serial_settings)
-        self.SERIAL_DEVICE = get_env_opt('SERIAL_DEVICE', str, True)
+        self.SERIAL_DEVICE = get_env_opt('SERIAL_DEVICE', str, False, '/dev/ttyDSMR')
         self.DSMR_VERSION = getattr(telegram_specifications, dsmr_version)
+        self.DMSR_TCP = get_env_opt('DMSR_TCP', bool, False, False)
+        self.DMSR_TCP_HOST = get_env_opt('DMSR_TCP_HOST', str, False, None)
+        self.DMSR_TCP_PORT = get_env_opt('DMSR_TCP_PORT', int, False, 23)
 
         self.MQTT_HOST = get_env_opt('MQTT_HOST', str, True)
         self.MQTT_PORT = get_env_opt('MQTT_PORT', int, False, None)
@@ -79,6 +82,7 @@ class Config:
         self.MQTT_PASSWORD = get_env_opt('MQTT_PASSWORD', str, self.MQTT_USERNAME is not None)
         self.MQTT_TOPIC_PREFIX = get_env_opt('MQTT_TOPIC_PREFIX', str, False, 'dsmr')
 
+        self.HA_ENABLED = get_env_opt('HA_ENABLED', bool, False, True)
         self.HA_DEVICE_ID = get_env_opt('HA_DEVICE_ID', str, False, 'dsmr')
         self.HA_DISCOVERY_PREFIX = get_env_opt('HA_DISCOVERY_PREFIX', str, False, 'homeassistant')
 

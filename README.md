@@ -281,6 +281,23 @@ not change the default values unless you know it will conflict.
 <tr>
 <td>
 
+`HA_ENABLED`
+
+</td>
+<td>
+
+Enable Home Assistant discovery if `True` 
+
+</td>
+<td>
+
+`True`
+
+</td>
+</tr>
+<tr>
+<td>
+
 `HA_DEVICE_ID`
 
 </td>
@@ -370,9 +387,6 @@ for more information. (Optional)
 
 Path to serial device file.
 
-**NOTE:** This option is for testing purposes only. When running in a
-container, `SERIAL_DEVICE` always has the value `/dev/ttyDSMR` and
-cannot be overridden. Make sure to map the host device accordingly.
 
 </td>
 <td>
@@ -411,6 +425,55 @@ Logging level. Must be `DEBUG`, `INFO`, `WARNING`, `ERROR` or
 <td>
 
 `INFO`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`DMSR_TCP`
+
+</td>
+<td>
+
+Boolean toggle to use TCP socket. When ```True``` the ```DMSR_TCP_HOST``` and ```DMSR_TCP_PORT``` are used.
+
+</td>
+<td>
+
+`False`
+
+</td>
+</tr>
+<tr>
+<td>
+
+`DMSR_TCP_HOST`
+
+</td>
+<td>
+
+Host to connect to the TCP stream of your slimme lezer
+
+</td>
+<td>
+
+</td>
+</tr>
+<tr>
+<td>
+
+`DMSR_TCP_PORT`
+
+</td>
+<td>
+
+Port to connect to the TCP stream of your slimme lezer
+
+</td>
+<td>
+
+```23```
 
 </td>
 </tr>

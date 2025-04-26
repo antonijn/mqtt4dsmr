@@ -17,11 +17,14 @@
 import logging
 import os
 import sys
-from dsmr_parser.clients import SerialReader
+from dsmr_parser.clients import SerialReader, SocketReader
 import paho.mqtt.client as mqtt
 from config import Config
 from schema import Schema
 from rate_limit import DirectPublisher, RateLimitedPublisher
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def on_connect(client, userdata, flags, rc):
@@ -73,19 +76,27 @@ def main():
     client.connect(cfg.MQTT_HOST, cfg.MQTT_PORT)
     client.loop_start()
 
-    serial_reader = SerialReader(
-        device=cfg.SERIAL_DEVICE,
-        serial_settings=cfg.SERIAL_SETTINGS,
-        telegram_specification=cfg.DSMR_VERSION
-    )
+    if cfg.DMSR_TCP:
+        device_reader = SocketReader(
+            host=cfg.DMSR_TCP_HOST,
+            port=cfg.DMSR_TCP_PORT,
+            telegram_specification=cfg.DSMR_VERSION
+        )
+    else:
+        device_reader = SerialReader(
+            device=cfg.SERIAL_DEVICE,
+            serial_settings=cfg.SERIAL_SETTINGS,
+            telegram_specification=cfg.DSMR_VERSION
+        )
 
     publisher = None
-    for telegram in serial_reader.read():
+    for telegram in device_reader.read():
         logging.debug('Received serial message')
 
         if publisher is None:
             schema = Schema(telegram, cfg.MQTT_TOPIC_PREFIX)
-            schema.publish_ha_discovery(client, cfg.HA_DISCOVERY_PREFIX, cfg.HA_DEVICE_ID, avail)
+            if cfg.HA_ENABLED:
+                schema.publish_ha_discovery(client, cfg.HA_DISCOVERY_PREFIX, cfg.HA_DEVICE_ID, avail)
 
             if cfg.MESSAGE_INTERVAL > 0:
                 publisher = RateLimitedPublisher(schema, client, cfg.MESSAGE_INTERVAL)
