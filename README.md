@@ -288,6 +288,7 @@ not change the default values unless you know it will conflict.
 
 Home Assistant internal device ID. You should probably not
 change the default values unless you know it will conflict.
+This setting can be made empty to disable Home Assistant discovery.
 (Optional)
 
 </td>

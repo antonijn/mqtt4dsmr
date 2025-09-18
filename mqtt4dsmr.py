@@ -92,7 +92,9 @@ def main():
 
         if publisher is None:
             schema = Schema(telegram, cfg.MQTT_TOPIC_PREFIX)
-            schema.publish_ha_discovery(client, cfg.HA_DISCOVERY_PREFIX, cfg.HA_DEVICE_ID, avail)
+            if cfg.HA_DEVICE_ID != '':
+                schema.publish_ha_discovery(
+                    client, cfg.HA_DISCOVERY_PREFIX, cfg.HA_DEVICE_ID, avail)
 
             if cfg.MESSAGE_INTERVAL > 0:
                 publisher = RateLimitedPublisher(schema, client, cfg.MESSAGE_INTERVAL)
