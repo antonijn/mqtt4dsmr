@@ -8,7 +8,7 @@ RUN --mount=type=tmpfs,target=/root/.cargo \
     apt-get update \
  && apt-get install --yes --no-install-recommends \
         build-essential libssl-dev libffi-dev cargo pkg-config \
- && pip install --no-cache-dir -r requirements.txt \
+ && pip install --root-user-action ignore --no-cache-dir -r requirements.txt \
  && apt-get autoremove --purge --yes \
         build-essential libssl-dev libffi-dev cargo pkg-config \
  && apt-get clean \

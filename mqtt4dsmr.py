@@ -24,7 +24,7 @@ from schema import Schema
 from rate_limit import DirectPublisher, RateLimitedPublisher
 
 
-def on_connect(client, userdata, flags, rc):
+def on_connect(client, userdata, flags, rc, properties):
     if rc == 0:
         logging.info('Connected to broker')
         client.publish(avail, 'online', retain=True)
@@ -32,7 +32,7 @@ def on_connect(client, userdata, flags, rc):
         logging.error('Broker connection failed')
 
 
-def on_disconnect(client, userdata, rc):
+def on_disconnect(client, userdata, disconnect_flags, rc, properties):
     logging.error('Disconnected from broker')
 
 
@@ -43,7 +43,7 @@ def main():
 
     cfg = Config()
 
-    client = mqtt.Client()
+    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
 
     if cfg.MQTT_TLS:
         logging.info('Using MQTT over TLS')
