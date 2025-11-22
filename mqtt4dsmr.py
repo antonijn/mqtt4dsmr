@@ -43,7 +43,7 @@ def main():
 
     cfg = Config()
 
-    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+    client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2,client_id=cfg.MQTT_CLIENT_ID)
 
     if cfg.MQTT_TLS:
         logging.info('Using MQTT over TLS')
