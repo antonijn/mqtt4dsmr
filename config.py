@@ -73,7 +73,7 @@ class Config:
 
         self.MQTT_HOST = get_env_opt('MQTT_HOST', str, True)
         self.MQTT_PORT = get_env_opt('MQTT_PORT', int, False, None)
-        self.MQTT_CLIENT_ID = get_env_opt('MQTT_CLIENT_ID', str, None)
+        self.MQTT_CLIENT_ID = get_env_opt('MQTT_CLIENT_ID', str, False, "mqtt4dsmr")
         self.MQTT_TLS = get_env_opt('MQTT_TLS', bool, False, None)
         self.MQTT_TLS_INSECURE = get_env_opt('MQTT_TLS_INSECURE', bool, False, False)
         self.MQTT_CA_CERTS = get_env_opt('MQTT_CA_CERTS', str, False)
