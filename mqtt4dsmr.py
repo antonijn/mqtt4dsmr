@@ -16,6 +16,7 @@
 
 import logging
 import os
+import signal
 import sys
 from dsmr_parser.clients import SerialReader, SocketReader
 import paho.mqtt.client as mqtt
@@ -36,7 +37,14 @@ def on_disconnect(client, userdata, disconnect_flags, rc, properties):
     logging.error('Disconnected from broker')
 
 
+def on_sigterm(signo, frame):
+    logging.info(f'Got SIGTERM, exiting gracefully')
+    sys.exit(0)
+
+
 def main():
+    signal.signal(signal.SIGTERM, on_sigterm)
+
     logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s', level=logging.INFO)
     version = os.getenv('MQTT4DSMR_VERSION', 'unknown')
     logging.info(f'Using mqtt4dsmr {version}')
