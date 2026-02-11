@@ -1,7 +1,7 @@
 asn1crypto==1.5.1
 attrs==25.3.0
 cffi==2.0.0
-cryptography==46.0.1
+cryptography==46.0.5
 dlms-cosem==21.3.2
 dsmr-parser==1.4.3
 paho-mqtt==2.1.0
