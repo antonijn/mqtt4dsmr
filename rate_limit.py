@@ -35,11 +35,7 @@ class RateLimitedPublisher:
         self.msg = Condition()
         self.tick = Condition()
         self.started = Condition()
-        self.total_msgs = 0
-        self.epoch = time.monotonic_ns()
         self.rate_ok = True
-
-        logging.debug(f'Rate limiter epoch: {self.epoch} ns')
 
         # Make sure we return an object with a consistent state. msg and
         # tick conditions must be in locked or waiting state before
@@ -50,9 +46,6 @@ class RateLimitedPublisher:
             Thread(target=self.loop, daemon=True).start()
             self.started.wait()
 
-    def next_ts(self):
-        return self.epoch + self.interval_ns * self.total_msgs
-
     def ticker(self):
         with self.tick:
             # Notify parent thread that we're holding the tick lock, and
@@ -60,9 +53,11 @@ class RateLimitedPublisher:
             with self.started:
                 self.started.notify()
 
+            next_ts = time.monotonic_ns()
+
             while True:
                 self.tick.wait()
-                sleep_ns = self.next_ts() - time.monotonic_ns()
+                sleep_ns = next_ts - time.monotonic_ns()
                 if sleep_ns > 0:
                     logging.debug(f'Rate limiter delay: {sleep_ns} ns')
                     time.sleep(sleep_ns / 1000000000)
@@ -72,6 +67,8 @@ class RateLimitedPublisher:
                 with self.msg:
                     self.rate_ok = True
                     self.msg.notify()
+
+                next_ts += self.interval_ns
 
     def loop(self):
         with self.msg:
@@ -89,7 +86,6 @@ class RateLimitedPublisher:
                 if self.telegram is not None:
                     logging.debug('Ready to publish message')
                     self.schema.publish(self.client, self.telegram)
-                    self.total_msgs += 1
                     self.telegram = None
 
                     with self.tick:

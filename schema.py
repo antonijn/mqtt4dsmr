@@ -73,7 +73,8 @@ class Schema:
         self.add_attributes(self.attributes, telegram, topic)
 
         self.mbus_attributes = {}
-        for mbus_dev in telegram.MBUS_DEVICES:
+        mbus_devices = getattr(telegram, 'MBUS_DEVICES', [])
+        for mbus_dev in mbus_devices:
             channel_id = mbus_dev.channel_id
             mbus_attr = {}
             self.add_attributes(mbus_attr, mbus_dev, f'{topic}/mbus{channel_id}')
